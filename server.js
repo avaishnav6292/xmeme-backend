@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const knex = require('knex');
+const serverless = require('serverless-http');
 
 const db = knex({
     client: 'sqlite3',
@@ -102,3 +103,5 @@ app.delete('/memes/:id', (req,res)=>{
 app.listen(port, ()=> {
     console.log(`XMeme Server is running on ${port}`);
 });
+
+module.exports.handler = serverless(app);

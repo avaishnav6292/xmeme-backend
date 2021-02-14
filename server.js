@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-// const dbs = require('./database.js');
 const knex = require('knex');
 
 const db = knex({
@@ -12,7 +11,7 @@ const db = knex({
     useNullAsDefault: true
   });
 
-const PORT = process.env.PORT | 5000;
+const port = process.env.PORT || 8081;
 
 // db.schema.hasTable('memes')
 //   .then((exist) => {
@@ -85,7 +84,7 @@ app.patch('/memes/:id', (req, res)=> {
     caption: caption,
     url: url
   })
-  .then(id => { return res.render('/memes').json({'id': id[0]}).end();})
+  .then(id => { return res.status(200).json(data[0]).end();})
     .catch(() => { return res.status(404).end(); })
 })
 
@@ -100,6 +99,6 @@ app.delete('/memes/:id', (req,res)=>{
 })
 
 
-app.listen(2000, ()=> {
-    console.log(`XMeme Server is running on ${PORT}`);
+app.listen(port, ()=> {
+    console.log(`XMeme Server is running on ${port}`);
 });
